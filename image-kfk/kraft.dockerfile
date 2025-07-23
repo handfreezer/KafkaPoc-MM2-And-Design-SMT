@@ -1,14 +1,13 @@
-FROM debian:bookworm-20240904
+FROM debian:bookworm-20250721
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV KFK_VERSION=3.8.0
+ENV KFK_VERSION=3.9.0
 
 RUN apt -y update &&\
 	apt -y upgrade &&\
 	apt install -y --no-install-recommends \
 		vim git curl wget python3 procps
 
-RUN apt install -y --no-install-recommends openjdk-17-jre-headless
 RUN apt install -y --no-install-recommends ca-certificates
 RUN apt install -y --no-install-recommends kcat
 
@@ -18,6 +17,12 @@ RUN mkdir -p /kafka/bin/server &&\
 	tar xzvf kafka*.tgz &&\
 	rm -rf kafka*.tgz &&\
 	ln -sf /kafka/bin/server/kafka_* /kafka/bin/server/kafka 
+
+RUN mkdir -p /kafka/bin/java &&\
+	cd /kafka/bin/java &&\
+	curl -kvO "https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz" &&\
+	tar xzvf openjdk*.tar.gz &&\
+	rm -rf openjdk*.tar.gz 	
 
 RUN mkdir -p /kafka/kraft /kafka/logs /kafka/connect /kafka/mm2 /kafka/libs /kafka/acls
 

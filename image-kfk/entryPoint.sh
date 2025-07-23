@@ -6,6 +6,9 @@ DIR_KRAFT="/kafka/kraft"
 DIR_KFK="/kafka/bin/server/kafka"
 KRAFT_CONFIG="${DIR_KRAFT}/kraft.properties"
 
+export JAVA_HOME=$(find /kafka/bin/java/ -maxdepth 1 -name '*jdk*' -type d)
+export PATH=${PATH}:${JAVA_HOME}/bin
+
 for jar in /kafka/libs/*.jar
 do
 	cpJar2LibDir=/kafka/bin/server/kafka/libs

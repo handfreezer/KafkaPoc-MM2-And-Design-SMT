@@ -43,10 +43,12 @@ function deploy_cluster() {
       echo "Checkpoints connector already deployed"
     else
       echo "Deploying checkpoints connector"
+set -x
       curl -X PUT -H "Content-Type: application/json" \
         --data @${CLUSTER_CPC_JSON_PATH}.patched \
         -s -f http://${TARGET_HOST}/connectors/${CLUSTER_CPC_NAME}/config >> /dev/null || \
         echo "ERROR: Failed to deploy checkpoints connector"
+set +x
     fi
   fi
 

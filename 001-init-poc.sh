@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KafkaConnectExtensions="1.5.0-3.8.0"
+KafkaConnectExtensions="1.5.0-3.9.0"
 KafkaIoConfluentDeps="7.5.1"
 KafkaIoConfluentPackages="kafka-schema-registry kafka-schema-registry-client"
 ApacheAvro="1.11.3"
@@ -32,6 +32,13 @@ rm -f datas-poc/libs/*.jar
 	echo "Mirror > ${?}"
 	wget https://github.com/handfreezer/KafkaConnectExtensions/releases/download/${KafkaConnectExtensions}/ulukai-kafka-broker-groupkafkaprincipal-${KafkaConnectExtensions}.jar 1>/dev/null 2>&1
 	echo "GroupsKafkaPrincipals > ${?}"
+	if [ 0 -lt "${modeDev}" ]
+	then
+		cp ~/git/KafkaConnectExtensions/mirror/target/ulukai-kafka-connect-mirror-${KafkaConnectExtensions}.jar . 1>/dev/null 2>&1
+		echo "DEV - Mirror > ${?}"
+		cp ~/git/KafkaConnectExtensions/broker/target/ulukai-kafka-broker-groupkafkaprincipal-${KafkaConnectExtensions}.jar . 1>/dev/null 2>&1
+		echo "DEV - GroupsKafkaPrincipals > ${?}"
+	fi
 	wget https://repo1.maven.org/maven2/org/apache/avro/avro/${ApacheAvro}/avro-${ApacheAvro}.jar 1>/dev/null 2>&1
 	echo "Avro > ${?}"
 	for dep in ${KafkaIoConfluentPackages}

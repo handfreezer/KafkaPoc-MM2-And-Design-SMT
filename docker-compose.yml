@@ -75,6 +75,7 @@ services:
         required: true
     volumes:
       - ./datas-poc/kfk/brk/dst/00:/kafka/kraft
+      - ./datas-poc/log4j.properties:/log4j.properties
       - ./datas-poc/libs:/kafka/libs
 
   kfkbrkdst-01:
