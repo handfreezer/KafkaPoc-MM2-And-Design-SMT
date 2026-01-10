@@ -1,15 +1,12 @@
-FROM debian:bookworm-20250721
+FROM debian:bookworm-20251229
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV KFK_VERSION=3.9.0
+ENV KFK_VERSION=4.1.1
 
 RUN apt -y update &&\
 	apt -y upgrade &&\
 	apt install -y --no-install-recommends \
-		vim git curl wget python3 procps
-
-RUN apt install -y --no-install-recommends ca-certificates
-RUN apt install -y --no-install-recommends kcat
+		vim git curl wget python3 procps kcat ca-certificates
 
 RUN mkdir -p /kafka/bin/server &&\
 	cd /kafka/bin/server &&\
